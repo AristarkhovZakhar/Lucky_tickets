@@ -1,0 +1,39 @@
+class Solution:
+
+    def __init__(self):
+        self.decomposition = {}
+
+    def number_of_decomposition(self, k: int, n: int):
+
+        if k <= 9 and n == 1:
+            self.decomposition[(k, n)] = 1
+            return 1
+        elif k >= 10 and n == 1:
+            self.decomposition[(k, n)] = 0
+            return 0
+
+        elif n == 2:
+            decompositions = 0
+            for i in range(10):
+                decompositions += self.number_of_decomposition(k - i, n - 1)
+                if k - i <= 0:
+                    break
+            self.decomposition[(k, n)] = decompositions
+            return decompositions
+
+        elif n == 3:
+            decompositions = 0
+            for i in range(10):
+                decompositions += self.number_of_decomposition(k - i, n - 1)
+                if k - i <= 0:
+                    break
+            self.decomposition[(k, n)] = decompositions
+            return decompositions
+
+
+if __name__ == "__main__":
+    a = Solution()
+    all_numbers = 0
+    for i in range(28):
+        all_numbers += (a.number_of_decomposition(i, 3)) ** 2
+    print(f"Количество счастливых билетов равно {all_numbers}")
